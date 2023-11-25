@@ -11,31 +11,25 @@ enum AppbarActionType { leading, trailing }
 
 final ProductController controller = Get.put(ProductController());
 
-class ProductListScreen extends StatelessWidget {
+class ProductListScreen extends StatefulWidget {
 
   const ProductListScreen({super.key});
 
+  @override
+  State<ProductListScreen> createState() => _ProductListScreenState();
+}
+
+class _ProductListScreenState extends State<ProductListScreen> {
+
+  // Widget homeWidget = ProductListScreen();
+  // homeWidget = Product()
   Widget appBarActionButton(AppbarActionType type) {
     IconData icon = Icons.account_circle;
 
     if (type == AppbarActionType.trailing) {
       icon = Icons.search;
     }
-    var dataList;
-    void fetchUser() async {
-      final dio = Dio();
 
-      try {
-        final response =
-        await dio.get('https://jsonplaceholder.typicode.com/photos');
-        if (response.statusCode == 200) {
-          dataList = response.data as List;
-          print("FFFFFFFLLLLL ${response.data}");
-        } else {
-          print("FFFFFFFyyyy ");
-        }
-      } catch (e) {}
-    }
     return Container(
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -158,7 +152,6 @@ class ProductListScreen extends StatelessWidget {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     controller.getAllItems();
@@ -195,5 +188,21 @@ class ProductListScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  var dataList;
+  void fetchUser() async {
+    final dio = Dio();
+
+    try {
+      final response =
+      await dio.get('https://jsonplaceholder.typicode.com/photos');
+      if (response.statusCode == 200) {
+        dataList = response.data as List;
+        print("FFFFFFFLLLLL ${response.data}");
+      } else {
+        print("FFFFFFFyyyy ");
+      }
+    } catch (e) {}
   }
 }

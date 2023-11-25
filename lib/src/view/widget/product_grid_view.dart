@@ -135,6 +135,7 @@ class ProductGridView extends StatelessWidget {
         ),
         itemBuilder: (_, index) {
           Product product = items[index];
+
           return OpenContainerWrapper(
             product: product,
             child: GridTile(
